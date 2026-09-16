@@ -5,11 +5,10 @@ lip-synced video offline — no code.
 
 ## Install
 
-The `bithuman` command is a single self-contained binary published
-on a Homebrew tap and as the `bithuman-cli` PyPI wheel. Source lives
-in the private `bithuman-apps` repo; runnable examples are in this
-directory. For the Python library (`from bithuman import AsyncBithuman`)
-see the [Python examples](../python/).
+The `bithuman` command is a single self-contained binary published on a
+Homebrew tap and as a prebuilt download for every supported platform.
+Runnable examples are in this directory. For the Python library
+(`from bithuman import AsyncBithuman`) see the [Python examples](../python/).
 
 ```bash
 # macOS — Homebrew (recommended; pulls native deps).
@@ -17,11 +16,12 @@ brew install bithuman-product/bithuman/bithuman-cli
 
 # macOS / Linux — universal one-liner.
 curl -fsSL https://raw.githubusercontent.com/bithuman-product/homebrew-bithuman/main/install.sh | sh
-
-# PyPI sibling wheel, same Rust binary (macOS Apple Silicon only —
-# on Linux use the one-liner above).
-pip install bithuman-cli
 ```
+
+Prebuilt binaries are also attached to each
+[release](https://github.com/bithuman-product/homebrew-bithuman/releases).
+The CLI is not distributed on PyPI: `pip install bithuman` installs the
+Python library only.
 
 All commands need a bitHuman API secret. Get yours at
 [www.bithuman.ai/#developer](https://www.bithuman.ai/#developer).
@@ -86,14 +86,14 @@ generates speech). Pick one of two paths via env vars:
 | Brain | How to enable | Notes |
 |-------|---------------|-------|
 | Cloud (default) | `export OPENAI_API_KEY=sk-...` | OpenAI Realtime; instant, no downloads. |
-| On-device | `export BITHUMAN_LOCAL=1` | whisper.cpp + llama.cpp + Supertonic + Silero. Needs `pip install 'bithuman-cli[local]'`. ~5 GB first-run download, then offline. |
+| On-device | `export BITHUMAN_LOCAL=1` | whisper.cpp + llama.cpp + Supertonic + Silero. Needs `pip install 'livekit-agents[silero]~=1.5' supertonic pywhispercpp llama-cpp-python soxr`. ~5 GB first-run download, then offline. |
 
 ```bash
 export OPENAI_API_KEY=sk-...     # cloud (default)
 bithuman run model.imx
 
 # or, fully on-device:
-pip install 'bithuman-cli[local]'
+pip install 'livekit-agents[silero]~=1.5' supertonic pywhispercpp llama-cpp-python soxr
 BITHUMAN_LOCAL=1 bithuman run model.imx
 ```
 

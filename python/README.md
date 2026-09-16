@@ -35,23 +35,26 @@ pip install "livekit-agents>=1.4" "livekit-plugins-bithuman>=1.4"
 
 ## Library only — the CLI ships separately
 
-As of 2.3, this package is **library-only** (~5 MB). The `bithuman`
-CLI moved to its own PyPI package, [`bithuman-cli`](https://pypi.org/project/bithuman-cli/),
-to keep this wheel slim for backend services / batch jobs / custom
-integrations. The runtime library API is unchanged — code pinned to
-`bithuman==1.11.3` (or `2.x`) runs on 2.3 without edits.
+As of 2.3, this package is **library-only** (~5 MB), to keep the wheel
+slim for backend services / batch jobs / custom integrations. The runtime
+library API is unchanged — code pinned to `bithuman==1.11.3` (or `2.x`)
+runs on 2.3 without edits.
 
-Need the talk-to-your-avatar CLI? Install either of:
+PyPI carries the Python library only. The CLI is **not distributed on
+PyPI** — install it from the Homebrew tap or the universal installer:
 
 ```bash
-pip install bithuman-cli                                   # sibling wheel
-brew install bithuman-product/bithuman/bithuman-cli        # Homebrew tap
+# macOS — Homebrew tap
+brew install bithuman-product/bithuman/bithuman-cli
+
+# macOS + Linux — universal installer
+curl -fsSL https://raw.githubusercontent.com/bithuman-product/homebrew-bithuman/main/install.sh | sh
 ```
 
-Both surface the same `bithuman run` / `render` / `info` subcommands
+Prebuilt binaries for every supported platform are attached to each
+[release](https://github.com/bithuman-product/homebrew-bithuman/releases).
+These surface the same `bithuman run` / `render` / `open` subcommands
 documented at [docs.bithuman.ai/getting-started/cli](https://docs.bithuman.ai/getting-started/cli).
-The CLI source lives in `bithuman-apps` *(private)*; this repo hosts
-the library only.
 
 ## Quick start — Essence (cross-platform, default)
 
@@ -156,14 +159,12 @@ Full reference: [docs.bithuman.ai](https://docs.bithuman.ai).
 
 ## CLI
 
-The `bithuman` CLI is a **separate package** ([`bithuman-cli`](https://pypi.org/project/bithuman-cli/)
-on PyPI, [`bithuman` on Homebrew](https://github.com/bithuman-product/homebrew-bithuman)).
-Source lives in the `bithuman-apps` repo *(private)*. Install one of:
+The `bithuman` CLI is a **separate product** from this library, shipped as
+a self-contained binary from the
+[`homebrew-bithuman`](https://github.com/bithuman-product/homebrew-bithuman)
+tap. It is not distributed on PyPI. Install one of:
 
 ```bash
-# PyPI sibling wheel — same Rust binary, Python-friendly install
-pip install bithuman-cli
-
 # macOS + Linux — universal installer
 curl -fsSL https://raw.githubusercontent.com/bithuman-product/homebrew-bithuman/main/install.sh | sh
 # Or macOS Homebrew

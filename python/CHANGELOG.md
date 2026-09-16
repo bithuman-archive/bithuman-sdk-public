@@ -10,26 +10,32 @@ All notable changes to the `bithuman` package are documented here.
   nothing else. Wheel size drops back to ~5 MB (was ~50–71 MB in
   2.0–2.2 when it also bundled the Rust CLI binary +
   `livekit-server`).
-- **CLI moved to a sibling wheel.** The talk-to-your-avatar CLI is now
-  published as [`bithuman-cli`](https://pypi.org/project/bithuman-cli/)
-  on PyPI. Source moved out of the SDK monorepo into the new
-  `bithuman-apps` repo *(private)* — apps consume the engine via the
-  SDKs, same as any other downstream consumer. Both wheels share the
-  same `libessence` engine — installing both side-by-side is supported.
+- **CLI moved to a sibling wheel.** *(Superseded — see the note below.)*
+  At the time of this release the talk-to-your-avatar CLI was published as a
+  `bithuman-cli` wheel on PyPI, alongside Homebrew.
 - **Homebrew install path unchanged.** `brew install
-  bithuman-product/bithuman/bithuman-cli` continues to ship the same Rust
-  binary as `bithuman-cli`; the formula source lives at
+  bithuman-product/bithuman/bithuman-cli` ships the Rust binary; the formula
+  source lives at
   [`homebrew-bithuman`](https://github.com/bithuman-product/homebrew-bithuman).
 
+> **Note (2026-09-16), superseding the two bullets above:** the CLI is no
+> longer distributed on PyPI, and the `bithuman-cli` name does not resolve
+> there. PyPI carries the Python library only (`pip install bithuman`).
+> Install the CLI from the Homebrew tap, the universal installer, or the
+> prebuilt binaries attached to each
+> [release](https://github.com/bithuman-product/homebrew-bithuman/releases).
+> The rest of this entry is kept as a record of the 2.3 release.
+
 ### Migration
-- **Already on `pip install bithuman` for the CLI?** Switch to one of:
+- **Already on `pip install bithuman` for the CLI?** Install the CLI binary
+  instead (current instructions):
   ```
-  pip install bithuman-cli                                   # PyPI sibling
-  brew install bithuman-product/bithuman/bithuman-cli        # Homebrew
+  brew install bithuman-product/bithuman/bithuman-cli        # macOS
+  curl -fsSL https://raw.githubusercontent.com/bithuman-product/homebrew-bithuman/main/install.sh | sh
   ```
-  The `bithuman` console-script disappears from this wheel — installing
-  `bithuman-cli` (or Homebrew) restores it. The CLI surface itself is
-  unchanged (`bithuman run / render / info / list / pull / doctor`).
+  The `bithuman` console-script disappears from this wheel — installing the
+  CLI binary restores it. The CLI surface itself is
+  unchanged (`bithuman run / render / open / list / pull / doctor`).
 - **Using the library only (`from bithuman import AsyncBithuman`)?** No
   code change required. `pip install bithuman --upgrade` is enough.
 - **`livekit-plugins-bithuman` ships separately.** The slim wheel no longer
@@ -42,14 +48,14 @@ All notable changes to the `bithuman` package are documented here.
   **unchanged**. Public symbols, error hierarchy, and IPC formats are preserved.
 - The slim wheel does **not** include the `bithuman.audio` / `bithuman.engine`
   / `bithuman.runtime` helper submodules — those were CLI/app-side helpers and
-  now live with `bithuman-cli` and the examples. Pure-library code
+  now live with the CLI and the examples. Pure-library code
   (`from bithuman import AsyncBithuman`) is unaffected.
 - Python 3.10 minimum unchanged.
 
 ### Architecture
 - This release is part of a coordinated cross-repo rollout that
   separates the **Engine** (`libessence`) from the **SDKs** (Python,
-  Swift, Kotlin, Rust) from the **Apps** (`bithuman-cli`, Flutter
+  Swift, Kotlin, Rust) from the **Apps** (the CLI, Flutter
   plugin, Expression demos). The engine + SDKs live in
   [`bithuman-sdk`](https://github.com/bithuman-product/bithuman-sdk);
   the apps live in `bithuman-apps` *(private)*;

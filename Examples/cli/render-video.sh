@@ -14,8 +14,8 @@ export BITHUMAN_API_SECRET="${BITHUMAN_API_SECRET:?Set BITHUMAN_API_SECRET first
 
 # Install the CLI if not already installed.
 #   macOS:  brew install bithuman-product/bithuman/bithuman-cli
-#   PyPI:   pip install bithuman-cli
-# (See ./README.md for the curl one-liner that works on Linux too.)
+#   Linux/macOS:
+#     curl -fsSL https://raw.githubusercontent.com/bithuman-product/homebrew-bithuman/main/install.sh | sh
 
 MODEL="${1:?Usage: ./render-video.sh <model.imx>}"
 
